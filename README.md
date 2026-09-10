@@ -1,13 +1,45 @@
 # mcp-asset-register
 
+<!-- mirror-seo:start -->
+
+**MCP server for a fixed asset register with depreciation schedules.** A fixed asset register that depreciates on the rates the tax authorities actually publish, with the schedule, the journal and the gain on sale.
+
+Works with Claude Desktop, Claude Code, Cursor and any Model Context Protocol client. Runs on your own machine, or hosted with no install.
+
+## Install
+
+**Hosted, nothing to install.** Point an MCP client at `https://mcp.zovo.one/mcp/asset-register` over streamable-http and send `Authorization: Bearer <token>`, where the token is a Pro key or a free anonymous one from <https://mcp.zovo.one/mcp/token>.
+
+**Claude Desktop, one click.** Download `asset-register.mcpb` from the [latest release](https://github.com/theluckystrike/mcp-servers/releases/latest) and double-click it.
+
+**From source.** The mirror is self-contained: every `@theluckystrike/*` dependency is vendored, so a fresh clone builds with no extra setup.
+
+```sh
+git clone https://github.com/theluckystrike/mcp-asset-register.git
+cd mcp-asset-register
+npm install && npm run build
+```
+
+Then point your client at the built entry point:
+
+```json
+{
+  "mcpServers": {
+    "asset-register": {
+      "command": "node",
+      "args": ["/absolute/path/to/mcp-asset-register/dist/index.js"]
+    }
+  }
+}
+```
+
+> `@theluckystrike/mcp-asset-register` is **not published on npm yet**, so an `npx -y @theluckystrike/mcp-asset-register` command will fail. The three paths above are the working ones and each is exercised by CI.
+
 ![asset-register demo](https://raw.githubusercontent.com/theluckystrike/mcp-servers/main/assets/demo-asset-register.gif)
-
-**One-click install:** download `asset-register.mcpb` from the [latest release](https://github.com/theluckystrike/mcp-servers/releases/latest) and double-click it in Claude Desktop.
-
-**Hosted endpoint (no install):** `https://mcp.zovo.one/mcp/asset-register` (streamable-http; send `Authorization: Bearer <Pro key or anonymous token from https://mcp.zovo.one/mcp/token>`).
 
 Read-only mirror of [mcp-servers/servers/asset-register](https://github.com/theluckystrike/mcp-servers/tree/main/servers/asset-register). See [MIRROR.md](MIRROR.md).
 
+<!-- mirror-seo:end -->
 
 Keep a fixed asset register and depreciate it on the rates the tax authorities actually publish. You give it what you bought, what it cost, when it went into use and which category it falls in; it gives you the rate, the useful life, the convention, the full schedule year by year or month by month, the monthly journal entry, and the gain or loss when you sell it. Three tables ship with it: the Polish annual depreciation rates from the annex to the CIT and PIT acts keyed to the KST classification, the UK capital allowance pools with the annual investment allowance, and the US MACRS GDS half-year tables for 3, 5 and 7 year property. The tables are bundled files, not a live feed, so the same asset depreciated twice gives the same answer, and every rate carries its instrument, its source URL and the date it took effect. Nothing leaves your machine.
 
