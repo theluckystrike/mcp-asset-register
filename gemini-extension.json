@@ -1,0 +1,22 @@
+{
+  "name": "mcp-asset-register",
+  "version": "0.21.0",
+  "description": "MCP server for a fixed asset register with depreciation schedules. A fixed asset register that depreciates on the rates the tax authorities actually publish, with the schedule, the journal and the gain on sale.",
+  "settings": [
+    {
+      "name": "mcp.zovo.one token",
+      "description": "A free anonymous token from https://mcp.zovo.one/mcp/token, or your Pro key. One token is one data space, and it is refreshed for another 30 days on every write.",
+      "envVar": "ZOVO_MCP_TOKEN",
+      "sensitive": true
+    }
+  ],
+  "mcpServers": {
+    "asset-register": {
+      "httpUrl": "https://mcp.zovo.one/mcp/asset-register",
+      "headers": {
+        "Authorization": "Bearer ${ZOVO_MCP_TOKEN}"
+      },
+      "description": "A fixed asset register that depreciates on the rates the tax authorities actually publish, with the schedule, the journal and the gain on sale."
+    }
+  }
+}
